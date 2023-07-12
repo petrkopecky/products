@@ -18,4 +18,11 @@ public interface ProductService {
     public ProductDto updateProduct(ProductDto productDto);
 
 
+    public ProductEntity getProductEntity(ProductDto productDto);
+
+    public ProductDto getProductDto(ProductEntity productEntity);
+
+    public List <ProductDto> getProductListDto(List<ProductEntity> productDtoList);
+
+
 }

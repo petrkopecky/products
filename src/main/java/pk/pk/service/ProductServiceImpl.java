@@ -40,8 +40,8 @@ public class ProductServiceImpl implements ProductService{
     public ProductDto updateProduct(ProductDto productDto) {
         return getProductDto(productRepository.updateProduct(getProductEntity(productDto)));
     }
-
-    ProductEntity getProductEntity(ProductDto productDto){
+    @Override
+    public ProductEntity getProductEntity(ProductDto productDto){
         ProductEntity productEntity=new ProductEntity();
         productEntity.setId(productDto.getId());
         productEntity.setName(productDto.getName());
@@ -49,7 +49,7 @@ public class ProductServiceImpl implements ProductService{
         return  productEntity;
     }
 
-    ProductDto getProductDto(ProductEntity productEntity){
+    public ProductDto getProductDto(ProductEntity productEntity){
         ProductDto productDto=null;
         if (productEntity!=null) {
             productDto = new ProductDto();
@@ -60,7 +60,7 @@ public class ProductServiceImpl implements ProductService{
         return  productDto;
     }
 
-    List <ProductDto> getProductListDto(List<ProductEntity> productDtoList){
+    public List <ProductDto> getProductListDto(List<ProductEntity> productDtoList){
         return productDtoList.stream().map(productEntity->getProductDto(productEntity)).toList();
     }
 
