@@ -7,19 +7,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import pk.entity.Product;
-import repository.ProductRepository;
+import pk.pk.model.ProductDto;
+import pk.pk.service.ProductService;
+
 
 import java.util.List;
 
 @RestController
 public class ProductControler {
 
-    private final ProductRepository productRepository;
+    private final ProductService productService;
 
     @Autowired
-    public ProductControler(ProductRepository productRepository) {
-        this.productRepository=productRepository;
+    public ProductControler(ProductService productService) {
+        this.productService=productService;
     }
 
     @GetMapping("/")
@@ -29,14 +30,15 @@ public class ProductControler {
     }
 
     @GetMapping("/products")
-    List<Product> products() {
-         return productRepository.getProductsList();
+    List<ProductDto> products() {
+         return productService.getProductsList();
     }
 
-    @PostMapping("/products")
-    public ResponseEntity<Product> createProduct(@RequestBody Product product){
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(product);
+    @PostMapping("/products/add")
+    public ResponseEntity<ProductDto> createProduct(@RequestBody ProductDto productDto){
+        System.out.println("/products:");
+        productService.addProduct(productDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(productDto);
 
     }
 

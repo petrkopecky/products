@@ -1,12 +1,12 @@
 package pk.pk.service;
 
-import org.springframework.stereotype.Service;
-import pk.entity.Product;
+import pk.entity.ProductEntity;
+import pk.pk.model.ProductDto;
 
-@Service
-public class ProductService {
-    public void addProduct(Product product){
+import java.util.List;
 
-    }
+public interface ProductService {
+    public void addProduct(ProductDto productDto);
 
+    List<ProductDto> getProductsList();
 }
