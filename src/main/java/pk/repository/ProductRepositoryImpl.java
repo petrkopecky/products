@@ -3,6 +3,7 @@ package pk.repository;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
 import pk.entity.ProductEntity;
+import pk.pk.model.ProductDto;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,22 +13,27 @@ import java.util.stream.Collectors;
 
 @Service
 public class ProductRepositoryImpl implements InitializingBean,ProductRepository {
-    Map<Long, ProductEntity> productList ;
+    Map<Long, ProductEntity> productMap;
 
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        productList = new HashMap<Long, ProductEntity>();
+        productMap = new HashMap<Long, ProductEntity>();
     }
 
     @Override
     public void addProduct(ProductEntity productEntity) {
-        productList.put(productEntity.getId(), productEntity);
+        productMap.put(productEntity.getId(), productEntity);
     }
 
     @Override
     public List<ProductEntity> getProductsList() {
-        return productList.values().stream().collect(
+        return productMap.values().stream().collect(
                 Collectors.toCollection(ArrayList<ProductEntity>::new));
+    }
+
+    @Override
+    public ProductEntity getProductById(Long productId) {
+        return productMap.get(productId);
     }
 }

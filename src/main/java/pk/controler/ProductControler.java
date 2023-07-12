@@ -6,10 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import pk.pk.model.ProductDto;
 import pk.pk.service.ProductService;
 
@@ -38,12 +36,21 @@ public class ProductControler {
          return productService.getProductsList();
     }
 
-    @PostMapping("/products/add")
+    @PostMapping("/products")
     public ResponseEntity<ProductDto> createProduct(@RequestBody ProductDto productDto, HttpServletRequest request, HttpServletResponse response){
         System.out.println("/products:");
         productService.addProduct(productDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(productDto);
 
+    }
+
+    @GetMapping("/products/{id}")
+    public ProductDto getProductById(@PathVariable Long id){
+        ProductDto productDto= productService.getProductById(id);
+        if(productDto == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "HTTP Status  (CODE 404)\n");
+        }
+        return  productDto;
     }
 
 }

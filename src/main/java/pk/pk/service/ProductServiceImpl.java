@@ -26,6 +26,11 @@ public class ProductServiceImpl implements ProductService{
         return getProductListDto(productRepository.getProductsList());
     }
 
+    @Override
+    public ProductDto getProductById(Long productId) {
+        return getProductDto(productRepository.getProductById(productId));
+    }
+
     ProductEntity getProductEntity(ProductDto productDto){
         ProductEntity productEntity=new ProductEntity();
         productEntity.setId(productDto.getId());
@@ -35,10 +40,13 @@ public class ProductServiceImpl implements ProductService{
     }
 
     ProductDto getProductDto(ProductEntity productEntity){
-        ProductDto productDto=new ProductDto();
-        productDto.setId(productEntity.getId());
-        productDto.setName(productEntity.getName());
-        productDto.setPrice(productEntity.getPrice());
+        ProductDto productDto=null;
+        if (productEntity!=null) {
+            productDto = new ProductDto();
+            productDto.setId(productEntity.getId());
+            productDto.setName(productEntity.getName());
+            productDto.setPrice(productEntity.getPrice());
+        }
         return  productDto;
     }
 

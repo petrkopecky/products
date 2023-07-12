@@ -9,4 +9,6 @@ public interface ProductService {
     public void addProduct(ProductDto productDto);
 
     List<ProductDto> getProductsList();
+
+    ProductDto getProductById(Long productId);
 }
