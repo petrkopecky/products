@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import pk.pk.model.ProductDto;
 import pk.pk.service.ProductService;
+import pk.repository.EntityNotFoundException;
 
 
 import java.net.http.HttpResponse;
@@ -22,7 +23,7 @@ public class ProductControler {
 
     @Autowired
     public ProductControler(ProductService productService) {
-        this.productService=productService;
+        this.productService = productService;
     }
 
     @GetMapping("/")
@@ -33,11 +34,11 @@ public class ProductControler {
 
     @GetMapping("/products")
     List<ProductDto> products() {
-         return productService.getProductsList();
+        return productService.getProductsList();
     }
 
     @PostMapping("/products")
-    public ResponseEntity<ProductDto> createProduct(@RequestBody ProductDto productDto, HttpServletRequest request, HttpServletResponse response){
+    public ResponseEntity<ProductDto> createProduct(@RequestBody ProductDto productDto, HttpServletRequest request, HttpServletResponse response) {
         System.out.println("/products:");
         productService.addProduct(productDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(productDto);
@@ -45,12 +46,35 @@ public class ProductControler {
     }
 
     @GetMapping("/products/{id}")
-    public ProductDto getProductById(@PathVariable Long id){
-        ProductDto productDto= productService.getProductById(id);
-        if(productDto == null){
+    public ProductDto getProductById(@PathVariable Long id) {
+        ProductDto productDto = productService.getProductById(id);
+        if (productDto == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "HTTP Status  (CODE 404)\n");
         }
-        return  productDto;
+        return productDto;
     }
+
+    @DeleteMapping("/products/{id}")
+    public void removeProductById(@PathVariable Long id) {
+        try {
+            productService.removeProductById(id);
+        } catch (EntityNotFoundException ex) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "HTTP Status  (CODE 404)\n");
+        }
+    }
+    @PutMapping("/products/{id}")
+    public ResponseEntity<ProductDto> updateProduct(@PathVariable Long id,@RequestBody ProductDto productDto) {
+        System.out.println("/products:");
+        productDto.setId(id);
+        ProductDto updatedProductDto;
+        try {
+            updatedProductDto = productService.updateProduct(productDto);
+        }catch (EntityNotFoundException ex) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "HTTP Status  (CODE 404)\n");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(updatedProductDto);
+
+    }
+
 
 }

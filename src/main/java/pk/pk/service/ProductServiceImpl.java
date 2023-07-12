@@ -31,6 +31,16 @@ public class ProductServiceImpl implements ProductService{
         return getProductDto(productRepository.getProductById(productId));
     }
 
+    @Override
+    public void removeProductById(Long productId) {
+          productRepository.removeProductById(productId);
+    }
+
+    @Override
+    public ProductDto updateProduct(ProductDto productDto) {
+        return getProductDto(productRepository.updateProduct(getProductEntity(productDto)));
+    }
+
     ProductEntity getProductEntity(ProductDto productDto){
         ProductEntity productEntity=new ProductEntity();
         productEntity.setId(productDto.getId());

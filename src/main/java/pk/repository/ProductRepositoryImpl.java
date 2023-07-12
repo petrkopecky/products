@@ -36,4 +36,21 @@ public class ProductRepositoryImpl implements InitializingBean,ProductRepository
     public ProductEntity getProductById(Long productId) {
         return productMap.get(productId);
     }
+
+    @Override
+    public void removeProductById(Long productId) throws EntityNotFoundException {
+        if(productMap.get(productId)==null){
+            throw new EntityNotFoundException();
+        }
+        productMap.remove(productId);
+    }
+
+    @Override
+    public ProductEntity updateProduct(ProductEntity productEntity) {
+        if(productMap.get(productEntity.getId())==null){
+            throw new EntityNotFoundException();
+        }
+        productMap.put(productEntity.getId(),productEntity);
+        return productEntity;
+    }
 }
