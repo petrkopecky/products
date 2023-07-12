@@ -27,8 +27,6 @@
          </dependency>
         <!-- https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api -->
 
-
-
-    </dependencies>
+     </dependencies>
 
 </project>

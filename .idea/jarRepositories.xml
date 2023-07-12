@@ -7,6 +7,11 @@
       <option name="url" value="http://nexus.services.itc.st.sk:8081/repository/Intranet" />
     </remote-repository>
     <remote-repository>
+      <option name="id" value="nexus-sk-maven-portal-hk-deployment" />
+      <option name="name" value="nexus-sk-maven-portal-hk-deployment" />
+      <option name="url" value="http://nexus.services.itc.st.sk:8081/repository/portal-hk-deployments/" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="tmcz-nexus" />
       <option name="name" value="tmcz-nexus" />
       <option name="url" value="http://vdsdsvn.cz.tmo/nexus/content/groups/public" />
@@ -20,6 +25,11 @@
       <option name="id" value="jboss.community" />
       <option name="name" value="JBoss Community repository" />
       <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="nexus-sk-maven-portal-hk-deployment" />
+      <option name="name" value="nexus-sk-maven-portal-hk-deployment" />
+      <option name="url" value="http://xnexus.services.itc.st.sk:8081/repository/portal-hk-deployments/" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="central" />

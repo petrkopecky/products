@@ -38,8 +38,7 @@ public class ProductControler {
     }
 
     @PostMapping("/products")
-    public ResponseEntity<ProductDto> createProduct(@RequestBody ProductDto productDto, HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("/products:");
+    public ResponseEntity<ProductDto> createProduct(@RequestBody ProductDto productDto) {
         productService.addProduct(productDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(productDto);
 
@@ -64,7 +63,6 @@ public class ProductControler {
     }
     @PutMapping("/products/{id}")
     public ResponseEntity<ProductDto> updateProduct(@PathVariable Long id,@RequestBody ProductDto productDto) {
-        System.out.println("/products:");
         productDto.setId(id);
         ProductDto updatedProductDto;
         try {
